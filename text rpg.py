@@ -25,13 +25,13 @@ def start():
             break
 
         elif extra == "2":
-            poggers = randint(1,2)
-            if poggers == 1:
+            nodel = randint(1,3)
+            if nodel == 1:
                 print("Du fant en delete knapp!")
                 dell = "bruk delete knapp"
                 delete += 1
                 break
-            elif poggers == 2:
+            else:
                 print ("Du fant ingen ting...")
                 break
         else:
