@@ -1,11 +1,10 @@
 from random import randint
 
 def start():
-    global liv, mat, xp, våpen, extra, vei, delete, matt, dell, uliv, enemy, gyllent, nope
-
+    global liv, mat, xp, våpen, extra, vei, øks, matt, gull, uliv, enemy, gyllent, nope
     liv = 10
     mat = 0
-    delete = 0
+    øks = 0
     xp = 0
     uliv = 0
     nope = 0
@@ -15,7 +14,7 @@ def start():
     print(f"Du fant ditt nye våpen {våpen}")
     input()
     print("Du finner enda en kiste, hva fant du der?")
-    extra = input("1: litt mat, 2: delete knapp *eller* ingen ting --- ")
+    extra = input("1: litt mat, 2: gull øks (2 bruk) --- ")
 
     while True:
         if extra == "1":
@@ -25,15 +24,11 @@ def start():
             break
 
         elif extra == "2":
-            nodel = randint(1,3)
-            if nodel == 1:
-                print("Du fant en delete knapp!")
-                dell = "bruk delete knapp"
-                delete += 1
-                break
-            else:
-                print ("Du fant ingen ting...")
-                break
+            print("Du fant en gull øks! (2)")
+            gull = "bruk gull øksa"
+            øks += 2
+            break
+            
         else:
             extra = input("Ugjyldig svar, prøv på nytt --- ")
 
@@ -43,16 +38,14 @@ def start():
         enemy = "Gyllent Tre"
     else:
         enemy = "Tre"
-    print(f"Du møter på et ondt {enemy}! (5 liv)")
+    print(f"Du møter på et ondt {enemy}! (6 liv)")
    
-
-    combat()
-
+    combat(6)
 
     if uliv <= 0:
         input()
         print("Treet døde tragisk")
-        if våpen == "ild":
+        if våpen == "ild" or våpen == "Ild":
             print("Du gikk opp med 69 xp")
             xp += 69
         elif gyllent == 1:
@@ -80,6 +73,7 @@ def start():
         else:
             vei = input("Ugjyldig svar, prøv på nytt --- ")
 
+
 def room3():
     global nope
     input()
@@ -98,7 +92,7 @@ def room3():
             veg = input("Ugjyldig svar, prøv på nytt --- ")
 
 def xproom():
-    global liv, mat, xp, våpen, extra, vei, delete, matt, dell, uliv, enemy, gyllent
+    global liv, mat, xp, våpen, extra, vei, øks, matt, gull, uliv, enemy, gyllent
     input()
     print("Du møter på en ond Gylden Busk! (5 liv)")
     enemy = "Gylden Busk"
@@ -107,7 +101,7 @@ def xproom():
     if uliv < 1:
         input()
         print("Busken døde tragisk")
-        if våpen == "ild":
+        if våpen == "ild" or våpen == "Ild":
             print("Du gikk opp med 69 xp")
             xp += 69
         else:
@@ -120,7 +114,7 @@ def xproom():
     room3()
 
 def matroom():
-    global liv, mat, xp, våpen, extra, vei, delete, matt, dell, uliv, enemy, gyllent
+    global liv, mat, xp, våpen, extra, vei, øks, matt, gull, uliv, enemy, gyllent
     input()
     print("Du møter på en ond Fleskete Busk! (5 liv)")
     enemy = "Fleskete Busk"
@@ -139,7 +133,7 @@ def matroom():
 
     room3()
 def landsby():
-    global liv, mat, xp, våpen, extra, vei, delete, matt, dell, uliv, enemy, gyllent, nope, blomst, venn, nah, matpoeng, totpoeng
+    global liv, mat, xp, våpen, extra, vei, øks, matt, gull, uliv, enemy, gyllent, nope, blomst, venn, nah, matpoeng, totpoeng
     nah = 0
     print("Du kom deg til landsbyen og oppdager at den er angrepet av en ond blomst!")
     input()
@@ -160,7 +154,7 @@ def landsby():
             slutt()
 
         elif blomst == "2":
-            venn = randint(2,2)
+            venn = randint(1,2)
             if venn == 1:
                 print("Du slo lag med blomsten og beseiret Soppelandsbyen")
                 print("Du gikk opp med 50 xp")
@@ -212,27 +206,25 @@ def landsby():
 
 
 def combat(hp=5):
-    global liv, mat, xp, våpen, extra, delete, matt, dell, enemy, uliv
+    global liv, mat, xp, våpen, extra, øks, matt, gull, enemy, uliv
     uliv = hp
     
     while uliv > 0:
         input()
-        liv = str(liv); uliv = str(uliv)
         print(f"[liv: {liv} --- fiende liv: {uliv}]")
         print("Hva gjør du?")
-        liv = int(liv); uliv = int(uliv)
 
-        if mat == 0 and delete == 0:
+        if mat == 0 and øks == 0:
             attack = input(f"1: bruk {våpen}, 4: prøv å løpe vekk --- ")
 
-        elif mat > 0 and delete == 0:
+        elif mat > 0 and øks == 0:
             attack = input(f"1: bruk {våpen}, 2: {matt}, 4: prøv å løpe vekk --- ")
         
-        elif delete > 0 and mat == 0:
-            attack = input(f"1: bruk {våpen}, 3: {dell}, 4: prøv å løpe vekk --- ")
+        elif øks > 0 and mat == 0:
+            attack = input(f"1: bruk {våpen}, 3: {gull} ({øks}), 4: prøv å løpe vekk --- ")
 
-        elif mat > 0 and delete > 0:
-            attack = input(f"1: bruk {våpen}, 2: {matt}, 3: {dell}, 4: prøv å løpe vekk --- ")
+        elif mat > 0 and øks > 0:
+            attack = input(f"1: bruk {våpen}, 2: {matt}, 3: {gull} ({øks}), 4: prøv å løpe vekk --- ")
 
 
         print()
@@ -265,12 +257,14 @@ def combat(hp=5):
             if mat <= 0: 
                 print("Du er nå tom for mat")
 
-        elif attack == "3" and delete > 0:
-            print("Du brukte delete knappen")
-            uliv -=999
+        elif attack == "3" and øks > 0:
+            print(f"Du slo {enemy} med gull øksa")
+            print(f"{enemy} gikk ned med 5 liv")
+            uliv -= 5
+            øks -= 1
         
         elif attack == "4" and enemy == "Blomst":
-            print("Du kunne ikke dra, landsbyen sto på spill")
+            print("Du kunne ikke dra, landsbyen sto på spill!")
             print("Du ble i kampen")
 
         elif attack == "4":
@@ -390,12 +384,10 @@ def combat(hp=5):
                     exit()
                 else:
                     reset = input("Ugjyldig svar, prøv på nytt --- ")
-
-
-    
+   
 
 def slutt():
-    global liv, mat, xp, våpen, extra, vei, delete, matt, dell, uliv, enemy, gyllent, nope, blomst, venn, nah, matpoeng, totpoeng
+    global liv, mat, xp, våpen, extra, vei, øks, matt, gull, uliv, enemy, gyllent, nope, blomst, venn, nah, matpoeng, totpoeng
     input()
     matpoeng = mat * 25
     totpoeng = xp + matpoeng
